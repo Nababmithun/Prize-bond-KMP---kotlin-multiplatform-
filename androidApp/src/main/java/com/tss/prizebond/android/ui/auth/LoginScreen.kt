@@ -1,24 +1,15 @@
 package com.tss.prizebond.android.ui.auth
 
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.tss.prizebond.data.AuthViewModel
 
 @Composable
@@ -27,74 +18,95 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit,
     onRegisterClick: () -> Unit
 ) {
-    // shared ViewModel state
     val state by authVm.loginState.collectAsState()
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-    // user input (hardcoded না – user
-    var email = remember { mutableStateOf("") }
-    var password = remember { mutableStateOf("") }
-
-    Column(
+    Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp),
-        verticalArrangement = Arrangement.Center
+            .background(Color(0xFFFFF6F5)),
+        contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = "Login",
-            style = MaterialTheme.typography.headlineMedium
-        )
 
-        Spacer(Modifier.height(12.dp))
-
-        OutlinedTextField(
-            value = email.value,
-            onValueChange = { email.value = it },
-            label = { Text("Email") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(Modifier.height(10.dp))
-
-        OutlinedTextField(
-            value = password.value,
-            onValueChange = { password.value = it },
-            label = { Text("Password") },
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Spacer(Modifier.height(18.dp))
-
-        Button(
-            onClick = {
-                authVm.login(
-                    email = email.value,
-                    password = password.value
-                )
-            },
-            enabled = !state.isLoading,
-            modifier = Modifier.fillMaxWidth()
+        Card(
+            modifier = Modifier
+                .fillMaxWidth(0.88f),
+            shape = RoundedCornerShape(30.dp),
+            colors = CardDefaults.cardColors(containerColor = Color.White),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
         ) {
-            Text(text = if (state.isLoading) "Logging in..." else "Login")
-        }
+            Column(
+                modifier = Modifier
+                    .padding(24.dp)
+            ) {
 
-        Spacer(Modifier.height(10.dp))
+                Text(
+                    text = "Sign in",
+                    fontSize = 26.sp,
+                    color = Color(0xFF523A3A)
+                )
 
-        TextButton(onClick = onRegisterClick) {
-            Text("Create a new account")
-        }
+                Text(
+                    text = "Because you deserve to be heard.",
+                    color = Color.Gray,
+                    fontSize = 14.sp
+                )
 
-        // সফল হলে home এ নিয়ে যাবে
-        state.user?.let {
-            onLoginSuccess()
-        }
+                Spacer(Modifier.height(20.dp))
 
-        // error থাকলে show করব
-        state.error?.let {
-            Text(
-                text = it,
-                color = MaterialTheme.colorScheme.error
-            )
+                // Email
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text("Email") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                Spacer(Modifier.height(16.dp))
+
+                // Password
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text("Password") },
+                    modifier = Modifier.fillMaxWidth(),
+                    shape = RoundedCornerShape(12.dp)
+                )
+
+                Spacer(Modifier.height(22.dp))
+
+                Button(
+                    onClick = { authVm.login(email, password) },
+                    enabled = !state.isLoading,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(52.dp),
+                    shape = RoundedCornerShape(25.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color(0xFFC28A9A)
+                    )
+                ) {
+                    Text("Log In", fontSize = 18.sp, color = Color.White)
+                }
+
+                Spacer(Modifier.height(12.dp))
+
+                // Create Account
+                TextButton(onClick = onRegisterClick) {
+                    Text("Create Account")
+                }
+
+                state.user?.let { onLoginSuccess() }
+                state.error?.let {
+                    Text(
+                        text = it,
+                        color = Color.Red,
+                        fontSize = 14.sp
+                    )
+                }
+            }
         }
     }
 }

@@ -44,6 +44,10 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     //Correct Navigation Dependency
+    implementation(libs.androidx.material3.window.size.class1)
+    implementation(libs.androidx.material.icons.extended)
+    implementation(libs.androidx.foundation.v194)
     implementation(libs.navigation.compose)
+    implementation(libs.androidx.material3.window.size.class1.android)
     debugImplementation(libs.compose.ui.tooling)
 }

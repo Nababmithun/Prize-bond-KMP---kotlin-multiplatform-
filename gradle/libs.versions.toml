@@ -3,6 +3,7 @@
 ##################################################
 [versions]
 agp = "8.9.1"
+foundation = "1.9.4"
 kotlin = "2.0.0"
 
 compose = "1.6.0"
@@ -12,7 +13,9 @@ activity-compose = "1.8.2"
 ktor = "2.3.9"
 coroutines = "1.7.3"
 
+material-icons-extended = "1.7.8"
 navigation = "2.7.7"
+material3-window-size-class1-android = "1.4.0"
 
 ##################################################
 # LIBRARIES
@@ -21,6 +24,9 @@ navigation = "2.7.7"
 
 # ---------- Compose ----------
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "activity-compose" }
+androidx-foundation-v194 = { module = "androidx.compose.foundation:foundation", version.ref = "foundation" }
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "material-icons-extended" }
+androidx-material3-window-size-class1 = { module = "androidx.compose.material3:material3-window-size-class", version.ref = "material3-window-size-class1-android" }
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "compose" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "compose" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "compose" }
@@ -44,6 +50,7 @@ coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", ve
 
 # ---------- Test ----------
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
+androidx-material3-window-size-class1-android = { group = "androidx.compose.material3", name = "material3-window-size-class-android", version.ref = "material3-window-size-class1-android" }
 
 ##################################################
 # PLUGINS
