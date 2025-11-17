@@ -39,8 +39,11 @@ android {
 dependencies {
     implementation(projects.shared)
     implementation(libs.compose.ui)
+    implementation(libs.ktor.client.okhttp)
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
+    //Correct Navigation Dependency
+    implementation(libs.navigation.compose)
     debugImplementation(libs.compose.ui.tooling)
 }

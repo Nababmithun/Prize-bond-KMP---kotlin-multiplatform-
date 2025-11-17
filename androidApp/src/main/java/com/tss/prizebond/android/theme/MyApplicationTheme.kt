@@ -1,4 +1,4 @@
-package com.tss.prizebond.android
+package com.tss.prizebond.android.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

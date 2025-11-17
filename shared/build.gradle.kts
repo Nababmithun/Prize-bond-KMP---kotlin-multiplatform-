@@ -18,28 +18,19 @@ kotlin {
         }
     }
 
-    // iOS targets
-    listOf(
-        iosX64(),
-        iosArm64(),
-        iosSimulatorArm64()
-    ).forEach {
-        it.binaries.framework {
-            baseName = "shared"
-            isStatic = true
-        }
-    }
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets {
 
         val commonMain by getting {
             dependencies {
                 implementation(libs.coroutines.core)
-
                 implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.logging)
                 implementation(libs.ktor.content.negotiation)
                 implementation(libs.ktor.serialization.json)
-                implementation(libs.ktor.client.logging)
             }
         }
 
@@ -49,7 +40,6 @@ kotlin {
             }
         }
 
-        // iOS SourceSet
         val iosMain by creating {
             dependsOn(commonMain)
             dependencies {
@@ -57,7 +47,6 @@ kotlin {
             }
         }
 
-        // All iOS targets connect to iosMain
         val iosX64Main by getting { dependsOn(iosMain) }
         val iosArm64Main by getting { dependsOn(iosMain) }
         val iosSimulatorArm64Main by getting { dependsOn(iosMain) }
