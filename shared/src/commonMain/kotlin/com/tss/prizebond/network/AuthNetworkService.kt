@@ -7,13 +7,13 @@ import io.ktor.client.call.body
 import io.ktor.client.request.forms.submitForm
 import io.ktor.http.Parameters
 
-class AuthApi(
+class AuthNetworkService(
     private val client: HttpClient
 ) {
 
     suspend fun login(email: String, password: String): LoginResponse {
         return client.submitForm(
-            url = "$BASE_URL/login",
+            url = ApiRoutes.LOGIN,
             formParameters = Parameters.build {
                 append("email", email)
                 append("password", password)
@@ -28,7 +28,7 @@ class AuthApi(
         passwordConfirmation: String
     ): RegisterResponse {
         return client.submitForm(
-            url = "$BASE_URL/users",
+            url = ApiRoutes.REGISTER,
             formParameters = Parameters.build {
                 append("name", name)
                 append("email", email)

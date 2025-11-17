@@ -1,11 +1,11 @@
 package com.tss.prizebond.data
 
 import com.tss.prizebond.models.User
-import com.tss.prizebond.network.AuthApi
+import com.tss.prizebond.network.AuthNetworkService
 
 
 class AuthRepository(
-    private val api: AuthApi
+    private val api: AuthNetworkService
 ) {
     suspend fun login(email: String, password: String): User {
         return api.login(email, password).user
